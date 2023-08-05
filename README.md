@@ -1,1 +1,3 @@
-# linux_and_bash_scripting
+# Bash scripting 
+## tutorial for beginners
+Notes and useful data
