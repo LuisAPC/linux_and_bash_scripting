@@ -48,6 +48,10 @@ echo $SHELL:
 chmod u+x name_of_file:
     give user executable permission for a specific file
 cp Src_file Dest_file: copy from some place to another
+grep: Searching and matching text files contained in the regular expressions
+rm: remove a file
+wc: word count
+test: it takes a couple of arguments and shows if expression is True/False
 
 Writing your first bash script------------------------------
 vim shelltest.sh
@@ -120,5 +124,123 @@ vim interactiveshell.sh
 chmod u+x interactiveshell.sh
 ./interactiveshell.sh
 
+Positional Arguments-------------------------------------------------
+They are arguments at a specific position
+Commands can ake in arguments at a specific position, counting from
+1 (0 is reserved for the shell)
+echo hello there!
+  0    1     2
+vim posargu.sh
+    #!/bin/bash
+
+    echo hello $1 $2
+    :wq
+chmod u+x posargu.sh
+./posargu.sh Luis Plancarte
+
+Piping (|) ------------------------------------------------------------
+Command one Pipe symbol Command two
+echo Hello there | grep there
+send command to the output of other commands
+ls -l /usr/bin
+    this displays a lot of data, we can filter to see only what we want
+ls-l /usr/bin | grep bash
+
+Output/Input redirection-------------------------------------
+Output redirection:
+    Sending an output of a command to a file
+    Like when logging something from your script to a log file
+    echo Hello World! > hello.txt
+    echo Hello World for the second time! >> hello.txt
+    > simbol to write to a file
+    >> to append to a file
+Input redirection:
+    < get input from a text file
+    wc -w hello.txt
+    wc -w < hello.txt
+    << supply multiple lines of text to a command
+    cat << EOF
+        I will
+        write som
+        text here
+        :)
+        EOF
+    <<< supply single strings of text to the command
+    wc -w <<< "Hello there wordcount!"
+
+Test operators----------------------------------------------
+test "hello" = "hello"
+[ hello = hello ] (alternative)
+echo $?
+    to see the output of the exit code of the executed command
+    0 means no errors
+[ 1 = 0 ]
+echo $?
+[ a -eq a ]
+    Check if they are the same but forcing tehm to be numeric values
+echo $?
+    -bash: [: a: integer expression expected
+
+If/Elif/Else------------------------------------------------
+vim ifelifelse.sh
+    #!/bin/bash
+
+    if [ ${1,,} = plancarte ]; then
+            echo "Oh, you're the boss here. Welcome!"
+    elif [ ${1,,} = help]; then
+            echo "Just enter your username, duh!"
+    else
+            echo "I don't know who you are. But you're not the boss of me!"
+    fi
+        Notes:
+            ${1,,}: means first argument and ,, are a parameter expansion
+                this will allow us to ignore upper/lower cases
+chmod u+x ifelifelse.sh
+./ifelifelse.sh plancarte
+./ifelifelse.sh hElP
+./ifelifelse.sh Louisito
+
+Case statements---------------------------------------------
+Better than if/elif/else hen you whant to chek for multiple values
+    because they are easuier to read
+vim login.sh
+    #!/bin/bash
+
+    case ${1,,} in
+            luis | plancarte | rey | admin)
+                    echo "Hello, you're the boss here!"
+                    ;;
+            help)
+                    echo "Just enter your username!"
+                    ;;
+            *)
+                    echo "I don't know who you are"
+    esac
+        Notes:
+            luis | plancarte | rey | admin): this admits multiple entries
+chmod u+x login.sh
+./login.sh plancarte
+./login.sh hElP
+./login.sh admin
+./login.sh romeo
+
+Arrays------------------------------------------------------
+MY_FIRST_LIST=(one two three four five)
+echo $MY_FIRST_LIST
+    one
+echo ${MY_FIRST_LIST[@]}
+    one two three fout five
+echo ${MY_FIRST_LIST[1]}
+    two
+
+For loop----------------------------------------------------
+for item in ${MY_FIRST_LIST[@]}; do echo -n $item | wc -c; done
+    3
+    3
+    5
+    4
+    4
+        this counted the length of every word in our list
+        -n: flag that counts out newlines chars
 
 """
