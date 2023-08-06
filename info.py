@@ -182,12 +182,65 @@ echo $?
     -bash: [: a: integer expression expected
 
 If/Elif/Else------------------------------------------------
+vim ifelifelse.sh
+    #!/bin/bash
 
+    if [ ${1,,} = plancarte ]; then
+            echo "Oh, you're the boss here. Welcome!"
+    elif [ ${1,,} = help]; then
+            echo "Just enter your username, duh!"
+    else
+            echo "I don't know who you are. But you're not the boss of me!"
+    fi
+        Notes:
+            ${1,,}: means first argument and ,, are a parameter expansion
+                this will allow us to ignore upper/lower cases
+chmod u+x ifelifelse.sh
+./ifelifelse.sh plancarte
+./ifelifelse.sh hElP
+./ifelifelse.sh Louisito
 
 Case statements---------------------------------------------
+Better than if/elif/else hen you whant to chek for multiple values
+    because they are easuier to read
+vim login.sh
+    #!/bin/bash
+
+    case ${1,,} in
+            luis | plancarte | rey | admin)
+                    echo "Hello, you're the boss here!"
+                    ;;
+            help)
+                    echo "Just enter your username!"
+                    ;;
+            *)
+                    echo "I don't know who you are"
+    esac
+        Notes:
+            luis | plancarte | rey | admin): this admits multiple entries
+chmod u+x login.sh
+./login.sh plancarte
+./login.sh hElP
+./login.sh admin
+./login.sh romeo
+
 Arrays------------------------------------------------------
+MY_FIRST_LIST=(one two three four five)
+echo $MY_FIRST_LIST
+    one
+echo ${MY_FIRST_LIST[@]}
+    one two three fout five
+echo ${MY_FIRST_LIST[1]}
+    two
+
 For loop----------------------------------------------------
-
-
+for item in ${MY_FIRST_LIST[@]}; do echo -n $item | wc -c; done
+    3
+    3
+    5
+    4
+    4
+        this counted the length of every word in our list
+        -n: flag that counts out newlines chars
 
 """
