@@ -120,5 +120,20 @@ vim interactiveshell.sh
 chmod u+x interactiveshell.sh
 ./interactiveshell.sh
 
+Positional Arguments-------------------------------------------------
+They are arguments at a specific position
+Commands can ake in arguments at a specific position, counting from
+1 (0 is reserved for the shell)
+echo hello there!
+  0    1     2
+vim posargu.sh
+    #!/bin/bash
+
+    echo hello $1 $2
+    :wq
+chmod u+x posargu.sh
+./posargu.sh Luis Plancarte
+
+
 
 """
