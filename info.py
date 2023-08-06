@@ -47,6 +47,7 @@ echo $SHELL:
     veryfy in which shell you are running (bash in this case)
 chmod u+x name_of_file:
     give user executable permission for a specific file
+cp Src_file Dest_file: copy from some place to another
 
 Writing your first bash script------------------------------
 vim shelltest.sh
@@ -82,7 +83,42 @@ vim shelltest.sh
 ./shelltest.sh
 
 Variables--------------------------------------------------------------
-vim shelltest.sh
+Example:
+    #!/bin/bash
+
+    ## NOT GOOD >>
+    cp /my/location/from /my/location/to
+    cp /my/location/from/here /my/location/to/there
+
+    ## BETTER
+    LOC_FROM=/my/location/from
+    LOC_TO=/my/location/to
+
+    cp $LOC_FROM $LOC_TO
+    cp "$LOC_FROM/here" "$LOC_TO/there"
+FIRST_NAME=Luis
+echo Hello $FIRST_NAME
+vim hellotehre.sh
+    #!/bin/bash
+
+    FIRST_NAME=Luis
+    LAST_NAME=Plancarte
+    echo Hello $FIRST_NAME $LAST_NAME welcome!
+    :wq
+chmod u+x hellothere.sh
+./hellothere.sh
+vim interactiveshell.sh
+    #!/bin/bash
+
+    echo What is your first name?
+    read FIRST_NAME
+    echo What is your last name?
+    read LAST_NAME
+
+    echo Hello $FIRST_NAME $LAST_NAME thank you!
+    :wq
+chmod u+x interactiveshell.sh
+./interactiveshell.sh
 
 
 """
