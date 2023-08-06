@@ -48,6 +48,7 @@ echo $SHELL:
 chmod u+x name_of_file:
     give user executable permission for a specific file
 cp Src_file Dest_file: copy from some place to another
+grep: Searching and matching text files contained in the regular expressions
 
 Writing your first bash script------------------------------
 vim shelltest.sh
@@ -134,6 +135,15 @@ vim posargu.sh
 chmod u+x posargu.sh
 ./posargu.sh Luis Plancarte
 
+Piping (|) ------------------------------------------------------------
+Command one Pipe symbol Command two
+echo Hello there | grep there
+send command to the output of other commands
+ls -l /usr/bin
+    this displays a lot of data, we can filter to see only what we want
+ls-l /usr/bin | grep bash
+
+Output/Input redirection-------------------------------------
 
 
 """
