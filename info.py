@@ -49,6 +49,8 @@ chmod u+x name_of_file:
     give user executable permission for a specific file
 cp Src_file Dest_file: copy from some place to another
 grep: Searching and matching text files contained in the regular expressions
+rm: remove a file
+wc: word count
 
 Writing your first bash script------------------------------
 vim shelltest.sh
@@ -144,6 +146,28 @@ ls -l /usr/bin
 ls-l /usr/bin | grep bash
 
 Output/Input redirection-------------------------------------
+Output redirection:
+    Sending an output of a command to a file
+    Like when logging something from your script to a log file
+    echo Hello World! > hello.txt
+    echo Hello World for the second time! >> hello.txt
+    > simbol to write to a file
+    >> to append to a file
+Input redirection:
+    < get input from a text file
+    wc -w hello.txt
+    wc -w < hello.txt
+    << supply multiple lines of text to a command
+    cat << EOF
+        I will
+        write som
+        text here
+        :)
+        EOF
+    <<< supply single strings of text to the command
+    wc -w <<< "Hello there wordcount!"
+
+Test operators-------------------------------------
 
 
 """
