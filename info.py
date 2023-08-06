@@ -243,4 +243,11 @@ for item in ${MY_FIRST_LIST[@]}; do echo -n $item | wc -c; done
         this counted the length of every word in our list
         -n: flag that counts out newlines chars
 
+Functions-----------------------------------------------------
+Exit codes----------------------------------------------------
+AWK-----------------------------------------------------------
+SED-----------------------------------------------------------
+
+
+
 """
