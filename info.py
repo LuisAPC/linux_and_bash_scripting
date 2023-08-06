@@ -229,7 +229,7 @@ MY_FIRST_LIST=(one two three four five)
 echo $MY_FIRST_LIST
     one
 echo ${MY_FIRST_LIST[@]}
-    one two three fout five
+    one two three four five
 echo ${MY_FIRST_LIST[1]}
     two
 
@@ -244,10 +244,134 @@ for item in ${MY_FIRST_LIST[@]}; do echo -n $item | wc -c; done
         -n: flag that counts out newlines chars
 
 Functions-----------------------------------------------------
+We might have a lot of repeated coe, we might want to do a
+specific set of commands in a certain order or run data through
+a set of if/else statements multiple times
+
+vim firstfunction.sh
+    #!/bin/bash
+
+    showuptime(){
+            up=$(uptime -p | cut -c4-)
+            since=$(uptime -s)
+            cat << EOF
+    ------
+    This machine has been up for ${up}
+    It has been running since ${since}
+    ------
+    EOF
+    }
+    showuptime
+    :wq
+chmod u+x firstfunction.sh
+====================Creating local variables=======================
+    modify the script and before the variable just type local
+        #!/bin/bash
+
+        up="outside"
+        since="function"
+        echo $up
+        echo $since
+
+        showuptime(){
+                local up=$(uptime -p | cut -c4-)
+                local since=$(uptime -s)
+                cat << EOF
+        ------
+        This machine has been up for ${up}
+        It has been running since ${since}
+        ------
+        EOF
+        }
+        showuptime
+
+        echo $up
+        echo $since
+====================Positional arguments=======================
+vim functionposargu.sh
+    #!/bin/bash
+
+    showname(){
+            echo hello $1
+    }
+    showname Luis
+chmod u+x functionposargu.sh
+./functionposargu.sh
+    hello Luis
+
 Exit codes----------------------------------------------------
+vim functionposargu.sh
+    #!/bin/bash
+
+    showname(){
+            echo hello $1
+            if [ ${1,,} = luis ]; then
+                    return 0
+            else
+                    return 1
+            fi
+    }
+    showname $1
+    if [ $? = 1 ]; then
+            echo "Someone unknown called the function!"
+    fi
+./functionposargu.sh luis
+    hello luIS
+./functionposargu.sh luisao
+    hello luisao
+    Someone unknown called the function!
+
 AWK-----------------------------------------------------------
+Filter file contentes, or the output of a command in such a way
+that you can print out the most essential parts and get the
+output the way we like it.
+
+You can filter parts of a file or parts of a command output by
+piping that output into AWK
+
+echo one two three > testfile.txt
+awk '{print $1}' testfile.txt
+    one
+
+vim csvtest.csv
+    one,two,three
+awk -F, '{print$3}' csvtest.csv
+    three
+
+echo "Just get this word: Hello" | awk '{print $5}'
+    Hello
+echo "Just get this word: Hello" | awk -F: '{print $2}' | cut -c2
+    H
+        -F:
+            Separates frase at colon
+                $1 = 'Just get this word'
+                $2 = ' Hello' (note that there is a space at the beginning)
+        cut -c2:
+            ($2 = ' Hello') gets separated into characters and
+            returns the second one = H
+
 SED-----------------------------------------------------------
+When you want to change certain values in text files
+Command line tool that allows you to modify values in a text
+file using regular expressions
 
+vim sedtest.txt
+    The fly flies like no fly flies.
+    A fly is an insect that has wings and a fly likes to eat leftovers.
+    :wq
+sed 's/fly/grasshoper/g' sedtest.txt
+    The grasshoper flies like no grasshoper flies.
+    A grasshoper is an insect that has wings and a grasshoper likes
+    to eat leftovers.
+        's/fly/grasshoper/g': set fly to grasshoper globally
 
+sed -i.ORIGINAL 's/fly/grasshoper/g' sedtest.txt
+cat sedtest.txt
+    The grasshoper flies like no grasshoper flies.
+    A grasshoper is an insect that has wings and a grasshoper
+    likes to eat leftovers.
+cat sedtest.txt.ORIGINAL
+    The fly flies like no fly flies.
+    A fly is an insect that has wings and a fly likes to eat leftovers.
 
 """
