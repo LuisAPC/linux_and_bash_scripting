@@ -51,6 +51,7 @@ cp Src_file Dest_file: copy from some place to another
 grep: Searching and matching text files contained in the regular expressions
 rm: remove a file
 wc: word count
+test: it takes a couple of arguments and shows if expression is True/False
 
 Writing your first bash script------------------------------
 vim shelltest.sh
@@ -167,7 +168,26 @@ Input redirection:
     <<< supply single strings of text to the command
     wc -w <<< "Hello there wordcount!"
 
-Test operators-------------------------------------
+Test operators----------------------------------------------
+test "hello" = "hello"
+[ hello = hello ] (alternative)
+echo $?
+    to see the output of the exit code of the executed command
+    0 means no errors
+[ 1 = 0 ]
+echo $?
+[ a -eq a ]
+    Check if they are the same but forcing tehm to be numeric values
+echo $?
+    -bash: [: a: integer expression expected
+
+If/Elif/Else------------------------------------------------
+
+
+Case statements---------------------------------------------
+Arrays------------------------------------------------------
+For loop----------------------------------------------------
+
 
 
 """
